@@ -1,4 +1,4 @@
-## Welcome to my repository.
+## The baker game.
 
 Help the baker to make money, be rich and famous!
 <!--
