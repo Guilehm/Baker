@@ -1,6 +1,6 @@
 """Padeiro pobre precisa de ajuda para começar a ganhar dinheiro.
 Ele precisa conseguir uma grana para comprar massas para produzir pão.
-Com o dinheiro da compra da massa ele pode ir à padaria, fazer e vender pães.
+Com massa ele pode ir à padaria, fazer e vender pães.
 Ele poderá pedir esmola na rua.
 Pode pedir esmola para a mãe.
 """
