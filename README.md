@@ -1,4 +1,4 @@
-## The baker game.
+## The baker game!
 
 Help the baker to make money, be rich and famous!
 <!--
