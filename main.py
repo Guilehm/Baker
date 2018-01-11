@@ -15,42 +15,52 @@ class Padeiro:
         self.dinheiro = float(dinheiro)
         self.massa = int(0)
         self.exp = 1.0
+        self.repetir = True
 
     def trabalhar(self):
         x = 0
-        fabricar = int(input('\tQuantos pães deseja produzir?\n\t'))   # precisa fazer validação
-        if fabricar > self.massa:
-            print('\tVocê não tem massa suficiente para essa quantidade.')
-        elif fabricar == 0:
-            print('\tIsso é falta de profissionalismo, quando vier ao trabalho, traga tudo que for necessário.')
-        else:
-            self.massa -= fabricar
-            while x < fabricar:
-                p = uniform(0.2, 0.6) * self.exp
-                print('\t\tPão fabricado, vendido por R$ {:.2f}.'.format(p))
-                self.dinheiro += p
-                x += 1
-                aprend = randint(1,15)
-                if aprend == 5:
-                    self.exp += aprend / 35
+        fabricar = input('\tQuantos pães deseja produzir?\n\t')   # precisa fazer validação
+        try:
+            fabricar = int((fabricar))
+            if fabricar > self.massa:
+                print('\tVocê não tem massa suficiente para essa quantidade.')
+            elif fabricar == 0:
+                print('\tIsso é falta de profissionalismo, quando vier ao trabalho, traga tudo que for necessário.')
+            else:
+                self.massa -= fabricar
+                while x < fabricar:
+                    p = uniform(0.2, 0.6) * self.exp
+                    print('\t\tPão fabricado, vendido por R$ {:.2f}.'.format(p))
+                    self.dinheiro += p
+                    x += 1
+                    aprend = randint(1,15)
+                    if aprend == 5:
+                        self.exp += aprend / 35
+        except:
+            print('*Apenas números inteiros são válidos.')
         self.menu()
 
     def superm(self):
         print('\tSeja bem-vindo ao Mercado de Massas.')
-        compra = int(input('\tNos informe quantas massas deseja comprar: '))
-        preco = compra * 10
-        if self.dinheiro < preco:
-            print('\nOps, você não tem dinheiro suficiente.\nCada uma custa R$ 10,00.')
-        elif compra == 0:
-            print('Volte sempre! Mas não me faça perder tempo!')
-        else:
-            self.massa += compra
-            self.dinheiro -= preco
-            print('Obrigado por sua compra, volte sempre!')
+        compra = input('\tNos informe quantas massas deseja comprar: ')
+        try:
+            compra = int(compra)
+            preco = compra * 10
+            if self.dinheiro < preco:
+                print('\nOps, você não tem dinheiro suficiente.\nCada uma custa R$ 10,00.')
+            elif compra == 0:
+                print('Volte sempre! Mas não me faça perder tempo!')
+            else:
+                self.massa += compra
+                self.dinheiro -= preco
+                print('Obrigado por sua compra, volte sempre!')
+        except:
+            print('*Apenas números inteiros são válidos.')
         self.menu()
 
     # def imprimir(self):
-    #     print('O nome do padeiro é {}, ele tem {} anos de idade e começou com {} reais.'.format(self.nome,self.idade,self.dinheiro))
+    #     print('O nome do padeiro é {}, ele tem {} anos de idade e começou com {} reais.'
+    # .format(self.nome,self.idade,self.dinheiro))
 
     def imprimir_din(self):
         print('{} está com R$ {:.2f}.'.format(self.nome, self.dinheiro))
@@ -99,29 +109,39 @@ class Padeiro:
 
     def menu(self):
         print('\nSkill: {:.2f}, R$ {:.2f}, massas: {}.'.format(self.exp, self.dinheiro, self.massa))
-        print('\n\tVocê pode levar {} ao supermercado, ao trabalho, para pedir esmola e outros lugares.'
+        print('\n\tAjude {} a tomar uma decisão.'
               .format(self.nome))
         print('\tAções:')
-        esc = int(input('\t\t1 - Ir ao trabalho.'
-                        '\n\t\t2 - Ir ao supermercado.'
-                        '\n\t\t3 - Ir à casa da mãe.'
-                        '\n\t\t4 - Pedir esmola.'
-                        '\n\t\t5 - Pedir empréstimo.'
-                        '\n\t\t6 - Sair.\n'))
-        if esc == 1:
-            self.trabalhar()
-        elif esc == 2:
-            self.superm()
-        elif esc == 3:
-            self.mae()
-        elif esc == 4:
-            self.esmola()
+        esc = input('\t\t1 - Ir ao trabalho.'
+                    '\n\t\t2 - Ir ao supermercado.'
+                    '\n\t\t3 - Ir à casa da mãe.'
+                    '\n\t\t4 - Pedir esmola.'
+                    '\n\t\t5 - Sair.\n')
+        try:
+            esc = int(esc)
+            if esc == 1:
+                self.trabalhar()
+            elif esc == 2:
+                self.superm()
+            elif esc == 3:
+                self.mae()
+            elif esc == 4:
+                self.esmola()
+            elif esc == 5:
+                self.repetir = False
+            elif esc > 5:
+                print('*Escolha entre 1 e 5.')
+        except:
+            print('*Escolha entre 1 e 5.')
+            self.menu()
 
 
 def home():
-    print('Olá, nosso amigo garçom precisa de ajuda. Que bom que te encontramos.\n')
-    print('Ele está desempregado e totalmente sem dinheiro, para isso, está contando com sua orientação.')
-    input('Existem algumas coisas que ele pode fazer mas ele está totalmente desorientado e não sabe por onde começar.')
+    print()
+    print('\tOlá, nosso amigo padeiro precisa de ajuda. Que bom que você veio!.')
+    print('\tEle  está  desempregado e  sem dinheiro, precisando de orientação.')
+    print('\tExiste uma forma de conseguir fazê-lo ganhar dinheiro. Encontre-a.')
+    input('\n\n\t Tecle "enter" para começar!')
 
 
 produtos = ['bolo', 'pão', 'broa', 'rosca', 'bolachinha']
@@ -129,5 +149,8 @@ valores = [5, 0.10, 0.5, 6, 1]
 prod = dict(zip(produtos, valores))
 padeiro = Padeiro('Jucinaldo', 32, 0)  # criando padeiro
 
-home()
-padeiro.menu()
+while padeiro.repetir == True:
+    home()
+    padeiro.menu()
+
+input('Tecle "enter" para fechar.')
