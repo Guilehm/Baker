@@ -21,7 +21,7 @@ class Padeiro:
         x = 0
         fabricar = input('\tQuantos pães deseja produzir?\n\t')   # precisa fazer validação
         try:
-            fabricar = int((fabricar))
+            fabricar = int(fabricar)
             if fabricar > self.massa:
                 print('\tVocê não tem massa suficiente para essa quantidade.')
             elif fabricar == 0:
@@ -29,13 +29,11 @@ class Padeiro:
             else:
                 self.massa -= fabricar
                 while x < fabricar:
-                    p = uniform(0.2, 0.6) * self.exp
+                    p = uniform(3.2, 5.6) + self.exp
+                    self.exp += uniform(0.2, 1)
                     print('\t\tPão fabricado, vendido por R$ {:.2f}.'.format(p))
                     self.dinheiro += p
                     x += 1
-                    aprend = randint(1,15)
-                    if aprend == 5:
-                        self.exp += aprend / 35
         except:
             print('*Apenas números inteiros são válidos.')
         self.menu()
@@ -70,13 +68,17 @@ class Padeiro:
         print('\nQue bom que veio me ver. É sempre muito gratificante receber um filho em casa.')
         print('Posso te ajudar dando dicas de padaria. Caso eu tenha algumas moedas, posso te dar.')
         esmola = uniform(0.05, 0.5)
-        aprend = randint(1, 11)
+        aprend = randint(1, 16)
 
         if aprend == 10 and self.dinheiro > 5:
             assalto = uniform(0.6, 0.8)
-            self.dinheiro = self.dinheiro * assalto
-            print('Sua mãe está pobre! Tomou R$ {:.2f} de você!'.format(self.dinheiro * assalto))
-        elif aprend == 5:
+            sub = self.dinheiro * assalto
+            aprendizado = (aprend / 55) * uniform(1, 1.8)
+            self.dinheiro -= sub
+            print('Sua mãe está pobre! Tomou R$ {:.2f} de você!'.format(sub))
+            self.exp += aprendizado
+            print('Em compensação te ensinou muitas coisas.')
+        elif aprend == 5 or aprend == 6:
             aprendizado = (aprend / 55) * uniform(1, 1.4)
             self.dinheiro += esmola
             self.exp += aprendizado
@@ -90,11 +92,12 @@ class Padeiro:
     def esmola(self):
         esmola = uniform(0.1, 2.5)
         p_exp = uniform(0.2, 1)
-        sorte = randint(1,11)
+        sorte = randint(1,15)
         if sorte == 10 and self.dinheiro > 5:
             assalto = uniform(0.5, 0.8)
-            self.dinheiro = self.dinheiro * assalto
-            print('Você foi assaltado! Levaram R$ {:.2f}.'.format(assalto))
+            sub = self.dinheiro * assalto
+            self.dinheiro -= sub
+            print('Você foi assaltado! Levaram R$ {:.2f}.'.format(sub))
         elif self.exp > 1:
             self.dinheiro += esmola
             self.exp -= p_exp
@@ -112,11 +115,11 @@ class Padeiro:
         print('\n\tAjude {} a tomar uma decisão.'
               .format(self.nome))
         print('\tAções:')
-        esc = input('\t\t1 - Ir ao trabalho.'
+        esc = int(input('\t\t1 - Ir ao trabalho.'
                     '\n\t\t2 - Ir ao supermercado.'
                     '\n\t\t3 - Ir à casa da mãe.'
                     '\n\t\t4 - Pedir esmola.'
-                    '\n\t\t5 - Sair.\n')
+                    '\n\t\t5 - Sair.\n'))
         try:
             esc = int(esc)
             if esc == 1:
@@ -149,7 +152,7 @@ valores = [5, 0.10, 0.5, 6, 1]
 prod = dict(zip(produtos, valores))
 padeiro = Padeiro('Jucinaldo', 32, 0)  # criando padeiro
 
-while padeiro.repetir == True:
+while padeiro.repetir:
     home()
     padeiro.menu()
 
