@@ -28,9 +28,9 @@ class Padeiro:
                 print('\tIsso é falta de profissionalismo, quando vier ao trabalho, traga tudo que for necessário.')
             else:
                 self.massa -= fabricar
+                self.exp += uniform(0.2, 1)
                 while x < fabricar:
-                    p = uniform(3.2, 5.6) + self.exp
-                    self.exp += uniform(0.2, 1)
+                    p = uniform(8.2, 9.6) + (self.exp / 5)
                     print('\t\tPão fabricado, vendido por R$ {:.2f}.'.format(p))
                     self.dinheiro += p
                     x += 1
@@ -71,7 +71,7 @@ class Padeiro:
         aprend = randint(1, 16)
 
         if aprend == 10 and self.dinheiro > 5:
-            assalto = uniform(0.6, 0.8)
+            assalto = uniform(0.3, 0.6)
             sub = self.dinheiro * assalto
             aprendizado = (aprend / 55) * uniform(1, 1.8)
             self.dinheiro -= sub
@@ -91,10 +91,10 @@ class Padeiro:
 
     def esmola(self):
         esmola = uniform(0.1, 2.5)
-        p_exp = uniform(0.2, 1)
+        p_exp = uniform(0.01, 0.1)
         sorte = randint(1,15)
         if sorte == 10 and self.dinheiro > 5:
-            assalto = uniform(0.5, 0.8)
+            assalto = uniform(0.3, 0.5)
             sub = self.dinheiro * assalto
             self.dinheiro -= sub
             print('Você foi assaltado! Levaram R$ {:.2f}.'.format(sub))
